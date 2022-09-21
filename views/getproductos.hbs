@@ -1,0 +1,35 @@
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 75%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+</style>
+
+<h2>Productos</h2>
+{{#if listExists}}
+    <table>
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Thumbnail</th>
+        <th>ID</th>
+    </tr>
+    {{#each productsList}}
+        <tr>
+            <td>{{this.title}}</td>
+            <td>{{this.price}}</td>
+            <td><img src={{this.thumbnail}}></td>
+            <td>{{this.id}}</td>
+        </tr>
+    {{/each}}
+{{else}}
+    <h1>No hay productos</h1>
+{{/if}}
+<h2><a href="http://localhost:8080/">Postear productos</a></h2>

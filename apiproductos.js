@@ -1,13 +1,19 @@
 const container = require('./container')
 const express = require("express")
-const { setDefaultResultOrder } = require('dns')
 
 const {Router} = express
 const router = Router()
 
 router.get('/productos', (req, res) => {
     nuevo.getAll().then(function(result){
-        res.send({array: JSON.parse(result)})
+        try{
+            const list = JSON.parse(result)
+            res.render("getproductos", { productsList : list, listExists: true})
+        }
+        catch{
+            res.render("getproductos", { listExists: false})
+        }
+        
     })
 })
 
@@ -26,9 +32,6 @@ router.get('/productos/:id', (req , res) => {
 
 router.post('/productos', (req, res) => {
     const {title, price, thumbnail} = req.body
-    console.log(title)
-    console.log(price)
-    console.log(thumbnail)
     //otra vez comparo con undefined
     if (title != undefined && price != undefined && thumbnail != undefined){
         var len
