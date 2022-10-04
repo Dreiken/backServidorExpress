@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 75%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+}
+
+.chat-email{
+    font-weight: bold;
+    color:blue
+}
+
+.chat-message{
+    font-style: italic;
+    color:green
+}
+
+.chat-time{
+    color:brown
+}
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Productos</title>
+</head>
+
+<body>
+    {{{body}}}
+
+    <div style="border-style: solid;" id="chat">
+    </div>
+        <div id="chat-messages">
+        </div>
+        <div>
+            <form id="chat-input" onsubmit='return postMessage(this)'>
+                <label for="email">Email:</label><br>
+                <input type="text" id="email" name="email"><br>
+                <label for="message">Mensaje:</label><br>
+                <input type="text" id="message" name="message"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Thumbnail</th>
+                    <th>ID</th>
+                </tr>
+            </thead>
+            <tbody id = "newProducts">
+            </tbody>
+    </div>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

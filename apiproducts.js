@@ -8,10 +8,10 @@ router.get('/productos', (req, res) => {
     nuevo.getAll().then(function(result){
         try{
             const list = JSON.parse(result)
-            res.render("getproductos", { productsList : list, listExists: true})
+            res.render("getproducts", { productsList : list, listExists: true})
         }
         catch{
-            res.render("getproductos", { listExists: false})
+            res.render("getproducts", { listExists: false})
         }
         
     })
@@ -61,7 +61,7 @@ router.delete('/productos/:id', (req, res) => {
 
 module.exports = router;
 
-const nuevo = new container("./productos.txt")
+const nuevo = new container("./products.txt")
 const guardar = {title: 'Fortaleza', price: '150', thumbnail: 'http'}
 //nuevo.save(guardar)
 //nuevo.getAll().then(value => console.log(value))

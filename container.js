@@ -1,4 +1,5 @@
 const fs = require("fs")
+const { inherits } = require("util")
 
 class Container{
     constructor (file){
@@ -9,12 +10,16 @@ class Container{
         let content = this.getAll()
         const path = this.file
 
-        if(obj.title != null && obj.price != null && obj.thumbnail != null){
-            addToFile(obj)
-            console.log("Objeto real")
-        }
-        else{
-            console.error("Objeto invalido")
+        verifyAndAdd()
+
+        function verifyAndAdd(){
+            if(obj.title != null && obj.price != null && obj.thumbnail != null){
+                addToFile(obj)
+                console.log("Objeto real")
+            }
+            else{
+                console.error("Objeto invalido")
+            }
         }
 
         async function addToFile(object){
@@ -129,4 +134,51 @@ async function read(file){
     }
 }
 
+class ContainerMessages extends Container{
+        //copypaste porque no sabia como solo modificar la verifyAndAdd(), creo que directamente no se puede, pero no sé como sacar addToFile sin romper todo ahora
+        save(obj){
+            let content = this.getAll()
+            const path = this.file
+    
+            verifyAndAdd()
+    
+            function verifyAndAdd(){
+                if(obj.message != null && obj.email != null && obj.time != null){
+                    addToFile(obj)
+                    console.log("Objeto real")
+                }
+                else{
+                    console.error("Objeto invalido")
+                }
+            }
+    
+            async function addToFile(object){
+                try{
+                    let arr = await content
+                    arr = JSON.parse(arr)
+                    console.log(arr)
+                    console.log(arr.length)
+                    if(arr.length == 0){
+                        arr = []
+                        object.id = 1
+                    }
+                    else{
+                        const highIdArr = arr.map(x => x.id)
+                        const max = Math.max.apply(null, highIdArr)
+                        object.id = max + 1
+                        
+                    }
+                    arr.push(object)
+                    const objJson = JSON.stringify(arr)
+                    await fs.promises.writeFile(path, objJson)
+                    console.log("Object added")
+                }
+                catch(err){
+                    console.log(err)
+                }
+            }
+        }     
+}
+
 module.exports = Container
+module.exports = ContainerMessages
