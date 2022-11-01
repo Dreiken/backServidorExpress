@@ -1,10 +1,40 @@
 const fs = require("fs")
 const { inherits } = require("util")
+const knex = require("./knexfile")
+const dbmaria = knex.maria
+const dblite = knex.sqlite
 
+class Container{
+    constructor (table){
+        this.table = table
+    }
+
+    save(data){
+        dbmaria("productos")
+        .insert(data)
+        .then(console.log("Producto AñadidoPP"))
+        .catch((e) => {console.log("error:", e)})
+        .finally("Save terminadoPP")
+    }
+}
+
+class ContainerMessages extends Container{
+    save(data){
+        dblite("mensajes")
+        .insert(data)
+        .then(console.log("Producto AñadidoMM"))
+        .catch((e) => {console.log("error:", e)})
+        .finally("Save terminadoMM")
+    }
+}
+
+
+/*
 class Container{
     constructor (file){
         this.file = file
     }
+    
     
     save(obj){
         let content = this.getAll()
@@ -131,8 +161,10 @@ async function read(file){
     }
     catch(err){
         console.log(err)
-    }
+    }  
 }
+
+
 
 class ContainerMessages extends Container{
         //copypaste porque no sabia como solo modificar la verifyAndAdd(), creo que directamente no se puede, pero no sé como sacar addToFile sin romper todo ahora
@@ -180,5 +212,6 @@ class ContainerMessages extends Container{
         }     
 }
 
-module.exports = Container
-module.exports = ContainerMessages
+*/
+
+module.exports = {productos: Container , mensajes : ContainerMessages}

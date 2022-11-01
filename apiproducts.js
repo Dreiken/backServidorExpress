@@ -1,3 +1,4 @@
+/*
 const container = require('./container')
 const express = require("express")
 
@@ -69,3 +70,5 @@ const guardar = {title: 'Fortaleza', price: '150', thumbnail: 'http'}
 //nuevo.deleteById(2)
 //nuevo.deleteAll()
 //primero.then(value => console.log(value))
+
+*/
